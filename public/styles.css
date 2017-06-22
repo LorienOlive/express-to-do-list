@@ -1,0 +1,19 @@
+    .todo-list {
+      list-style-type: none;
+      padding-left: 0.5em;
+    }
+
+    .line-through {
+      margin-bottom: 1rem;
+      font-weight: normal;
+      padding-left: 1vw;
+    }
+
+    .checkbox:checked + label.line-through {
+      text-decoration: line-through;
+    }
+
+    li {
+      display: flex;
+      flex-flow: row nowrap;
+    }
