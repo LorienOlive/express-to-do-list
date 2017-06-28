@@ -3,6 +3,8 @@ const path = require('path');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
+const models = require('./models')
+const sequelize = require('sequelize');
 
 const app = express();
 
@@ -15,15 +17,13 @@ app.engine('mustache', mustacheExpress());
 app.set('views', './views')
 app.set('view engine', 'mustache');
 
-const todos = [
-  "wash car",
-  "groom dog",
-  "get groceries"
-];
-
 app.get('/', function (req, res) {
-  res.render('index', {todo: todos});
-})
+  models.todos.findAll().then(function(expresstodos) {
+    res.render('index', {
+      todos: expresstodos
+    });
+  });
+});
 
 app.post("/", function (req, res) {
   var inputItem = req.body.input;
@@ -32,8 +32,12 @@ app.post("/", function (req, res) {
   if (errors) {
     res.render('errors', {oops: errors})
   } else {
-  todos.push(req.body.input);
-  res.redirect('/');
+    models.todos.create({ title: inputItem }).then(function(title) {
+    todos.save().then(function (newTodo) {
+    console.log(newTodo);
+    res.redirect('/');
+    })
+    })
   }
 })
 

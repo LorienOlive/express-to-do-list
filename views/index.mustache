@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <form method="post" class="wrapper">
+    <form action="/" method="post" class="wrapper">
       <input type="text" name="input">
       <input type="submit" value="Add Item">
     </form>
       <ul class="todo-list">
-        {{#todo}}
-        {{#.}}
+        {{#todos}}
+        {{#dataValues}}
         <li><input class="checkbox" type="checkbox">
-          <label class="line-through"> {{.}}<label></li>
-        {{/.}}
-        {{/todo}}
+          <label class="line-through"> {{title}}<label></li>
+        {{/dataValues}}
+        {{/todos}}
       </ul>
     </form>
   </body>
