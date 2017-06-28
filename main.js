@@ -8,6 +8,8 @@ const sequelize = require('sequelize');
 
 const app = express();
 
+var todos = models.todos;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator())
@@ -33,10 +35,7 @@ app.post("/", function (req, res) {
     res.render('errors', {oops: errors})
   } else {
     models.todos.create({ title: inputItem }).then(function(title) {
-    todos.save().then(function (newTodo) {
-    console.log(newTodo);
     res.redirect('/');
-    })
     })
   }
 })
